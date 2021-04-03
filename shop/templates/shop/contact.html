@@ -1,5 +1,16 @@
 {% extends 'shop/basic.html' %}
 
+{% block css %}
+           a:hover{
+text-decoration: none;
+color: black
+}
+
+a{
+color: white;
+}
+
+{% endblock %}
 {% block body %}
 <div class="container my-3">
     <h3>Contact Us</h3>
@@ -35,5 +46,13 @@
 <script>
     document.querySelector(".searchProduct").innerHTML = ""
     document.querySelector(".cart-button").innerHTML = ""
+    {% if check %}
+    Swal.fire({
+  title: 'Email Sent Successfully!',
+  text: 'We have received your email and will respond as soon as possible.',
+  icon: 'success',
+  confirmButtonText: '<a href="/shop">OK </a>'
+})
+{% endif %}
 </script>
 {% endblock %}

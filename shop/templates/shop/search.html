@@ -39,6 +39,14 @@
                 top: 38px;
                 background-color: pink;
 }
+a:hover{
+text-decoration: none;
+color: black
+}
+
+a{
+color: white;
+}
 
 {% endblock %}
 {% block body %}
@@ -95,8 +103,12 @@
 <script>
 
 {%if msg|length != 0 %}
-alert('{{msg}}');
-window.location.href="/shop"
+Swal.fire({
+  title: 'Error!',
+  text: '{{msg}}',
+  icon: 'error',
+  confirmButtonText: '<a href="/shop">OK</a>'
+})
 {%endif%}
 
 if (localStorage.getItem('cart') == null) {

@@ -21,48 +21,62 @@ right: 276px;
 .card-img-top{
 height: 250px;
 }
-
+.stretched-link::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    pointer-events: auto;
+    content: "";
+    background-color: rgba(0,0,0,0);
+}
 {% endblock %}
 
 {% block body %}
 {% load static %}
 <div class="row my-5 d-flex justify-content-center align-items-center">
       <div class="col-sm-6">
-<a href="/shop/smartphone"><div class="card" style="width: 25rem; margin-left: 250px">
+<div class="card" style="width: 25rem; margin-left: 250px">
   <img src="{%static 'shop/smartphones1.jpg'%}" class="card-img-top" alt="...">
   <div class="card-body">
     <h1 class="card-title" style="text-align: center;">Smartphone</h1>
+    <a href="/shop/smartphone" class="stretched-link"></a>
   </div>
 </div>
-   </a> </div>
+   </div>
    <div class="col-sm-6 move-left">
-<a href="/shop/laptops"> <div class="card" style="width: 25rem; margin-left: 250px">
+ <div class="card" style="width: 25rem; margin-left: 250px">
   <img src="{%static 'shop/laptop.jpg'%}" class="card-img-top" alt="...">
   <div class="card-body">
     <h1 class="card-title" style="text-align: center;">Laptops</h1>
+      <a href="/shop/laptops" class="stretched-link"></a>
   </div>
 </div>
-    </a></div>
+    </div>
 
 </div>
 
 <div class="row my-5 d-flex justify-content-center align-items-center">
       <div class="col-sm-6">
-<a href="/shop/television"><div class="card" style="width: 25rem; margin-left: 250px">
+<div class="card" style="width: 25rem; margin-left: 250px">
   <img src="{%static 'shop/tv.jpg'%}" class="card-img-top" alt="...">
   <div class="card-body">
     <h1 class="card-title" style="text-align: center;">Televisions</h1>
+      <a href="/shop/television" class="stretched-link"></a>
   </div>
 </div>
-   </a> </div>
+    </div>
    <div class="col-sm-6 move-left">
-<a href="/shop/accessories"> <div class="card" style="width: 25rem; margin-left: 250px">
+ <div class="card" style="width: 25rem; margin-left: 250px">
   <img src="{%static 'shop/access.jpg'%}" class="card-img-top" alt="...">
   <div class="card-body">
     <h1 class="card-title" style="text-align: center;">Accessories</h1>
+      <a href="/shop/accessories" class="stretched-link"></a>
   </div>
 </div>
-    </a></div>
+    </div>
 
 </div>
 {% endblock %}

@@ -16,11 +16,20 @@
     margin-right: 20px;
   }
 
+  .custom-select{
+    background-color: #343a40;
+    color: #fff;
+    border: none;
+    outline: none;
+  }
+
+
+
           {% block css %} {% endblock %}
   </style>
   </head>
 {% load static %}
-  <body style="background-image: linear-gradient(#00008B, #4169E1);; background-repeat: no-repeat; background-size: cover" >
+  <body style="background-image: linear-gradient(#87CEFA, #4169E1); background-repeat: no-repeat; background-size: cover; min-height: 100vh;" >
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand" href="/shop/">My Home Shop</a>
@@ -41,6 +50,14 @@
       </li>
       <li class="nav-item active">
         <a class="nav-link" href="/shop/tracker">Tracker <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active"><select class="custom-select" onchange="location = this.value;">
+  <option selected value="http://127.0.0.1:8000/shop/">Categories</option>
+  <option value="http://127.0.0.1:8000/shop/smartphone">Smartphones</option>
+  <option value="http://127.0.0.1:8000/shop/laptops">Laptops</option>
+  <option value="http://127.0.0.1:8000/shop/television">Televisions</option>
+  <option value="http://127.0.0.1:8000/shop/accessories">Accessories</option>
+</select>
       </li>
 
 
@@ -69,7 +86,9 @@
   crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-
+     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="sweetalert2.min.css">
   {% block js %} {% endblock %}
 
   </body>

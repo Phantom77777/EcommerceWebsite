@@ -13,6 +13,14 @@
     color: black;
     background-color: #39FF14;
 }
+a:hover{
+text-decoration: none;
+color: black
+}
+
+a{
+color: white;
+}
 {% endblock %}
 {% block body %}
 <div class="container main-body">
@@ -125,12 +133,12 @@ document.getElementById('totalPrice').innerHTML = totalprice
 
 $('#items').val(JSON.stringify(cart))
 {% if check %}
-document.querySelector(".message").innerHTML = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
-  <strong>Order Placed Successfully!</strong> Your order id is {{order_id}}.Please use it to track your order.
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true" onClick="sendToHome()">&times;</span>
-  </button>
-</div>`
+Swal.fire({
+  title: 'Order Placed Successfully!',
+  text: 'Your order id is {{order_id}}.Please use it to track your order.',
+  icon: 'success',
+  confirmButtonText: '<a href="/shop">OK </a>'
+})
 localStorage.clear()
 {% endif %}
 

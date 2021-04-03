@@ -17,12 +17,15 @@ def about(request):
 
 @login_required(login_url='/login')
 def contact(request):
-    name = request.POST.get('name', '')
-    email = request.POST.get('email', '')
-    phone = request.POST.get('phone', '')
-    description = request.POST.get('description', '')
-    contact = Contact(name=name, email=email, phone=phone, description=description)
-    contact.save()
+    if request.method == 'POST':
+        name = request.POST.get('name', '')
+        email = request.POST.get('email', '')
+        phone = request.POST.get('phone', '')
+        description = request.POST.get('description', '')
+        contact = Contact(name=name, email=email, phone=phone, description=description)
+        contact.save()
+        check = True
+        return render(request, "shop/contact.html", {'check': check})
     return render(request, "shop/contact.html")
 
 

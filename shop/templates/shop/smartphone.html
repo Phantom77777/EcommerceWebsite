@@ -106,8 +106,13 @@
 </div>
 {% endblock %}
 
+{ % block ss %}
+selected
+{ % endblock %}
+
 {% block js %}
 <script>
+$('.custom-select').val("http://127.0.0.1:8000/shop/smartphone")
 $('.carousel').carousel('pause');
 if(localStorage.getItem('cart') == null && localStorage.getItem('smartphoneCart') == null){
 var cart = new Object();
