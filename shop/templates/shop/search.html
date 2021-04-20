@@ -131,7 +131,7 @@ $('.divpr').on('click', 'button.cart', function() {
     localStorage.setItem('cart', JSON.stringify(cart));
     updateCart();
 });
-//Add Popover to cart
+
 $('#popcart').popover();
 updatePopOver();
 
@@ -197,21 +197,27 @@ $('.divpr').on('click', 'button.minus', function(){
     cart[pr_id][0] = Math.max(cart[pr_id][0], 0)
     if(cart[pr_id][0] == 0){
         document.getElementById(`div${pr_id}`).innerHTML = `<button id="${pr_id}" class="btn btn-primary cart">Add to Cart</button>`
+        console.log("before: ", cart)
+        delete cart[pr_id]
+        console.log("after: ", cart)
     }
-    document.getElementById(`value${pr_id}`).innerHTML = cart[pr_id][0]
-    document.getElementById(`price${pr_id}`).innerHTML = cart[pr_id][2]*cart[pr_id][0]
-    localStorage.setItem('cart', JSON.stringify(cart));
-    updatePopOver()
+    localStorage.setItem('cart', JSON.stringify(cart))
+    if(cart[pr_id] != null && cart[pr_id] != 0){
+        document.getElementById(`value${pr_id}`).innerHTML = cart[pr_id][0]
+        document.getElementById(`price${pr_id}`).innerHTML = cart[pr_id][2]*cart[pr_id][0]
+    }    
+    updateCart()
 })
 
 $('.divpr').on('click', 'button.plus', function(){
     let pr_id = this.id.slice(4,)
     console.log(pr_id)
     cart[pr_id][0] += 1
+    cart[pr_id][0] = Math.min(cart[pr_id][0], 10)
     document.getElementById(`value${pr_id}`).innerHTML = cart[pr_id][0]
     document.getElementById(`price${pr_id}`).innerHTML = cart[pr_id][2]*cart[pr_id][0]
-    localStorage.setItem('cart', JSON.stringify(cart));
-    updatePopOver()
+    localStorage.setItem('cart', JSON.stringify(cart))
+    updateCart()
 })
 </script>
 {% endblock %}

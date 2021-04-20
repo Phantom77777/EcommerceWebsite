@@ -100,9 +100,9 @@ def smartphone(request):
                 number_of_slides = n // 4 + 1
             products.append([prodtemp, range(1, number_of_slides), number_of_slides])
 
-    params = {'allProducts': products}
+    params = {'allProducts': products,'category': 'smartphone'}
 
-    return render(request, "shop/smartphone.html", params)
+    return render(request, "shop/products.html", params)
 
 
 @login_required(login_url='/login')
@@ -121,9 +121,9 @@ def accessories(request):
                 number_of_slides = n // 4 + 1
             products.append([prodtemp, range(1, number_of_slides), number_of_slides])
 
-    params = {'allProducts': products}
+    params = {'allProducts': products,'category': 'accessories'}
 
-    return render(request, "shop/accessories.html", params)
+    return render(request, "shop/products.html", params)
 
 
 @login_required(login_url='/login')
@@ -142,8 +142,8 @@ def television(request):
                 number_of_slides = n // 4 + 1
             products.append([prodtemp, range(1, number_of_slides), number_of_slides])
 
-    params = {'allProducts': products}
-    return render(request, "shop/television.html", params)
+    params = {'allProducts': products,'category': 'television'}
+    return render(request, "shop/products.html", params)
 
 
 @login_required(login_url='/login')
@@ -162,8 +162,8 @@ def laptops(request):
                 number_of_slides = n // 4 + 1
             products.append([prodtemp, range(1, number_of_slides), number_of_slides])
 
-    params = {'allProducts': products}
-    return render(request, "shop/laptops.html", params)
+    params = {'allProducts': products,'category': 'laptops'}
+    return render(request, "shop/products.html", params)
 
 
 def searchMatch(query, item):
