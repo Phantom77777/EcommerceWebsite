@@ -52,15 +52,10 @@
     <!--Slideshow starts here -->
 
 {% for product, range, number_of_slides in allProducts %}
-    <h2 class="my-4">{{product.0.subcategory}}</h2>
+    <h2 class="my-4">Top Picks from {{product.0.category}}</h2>
     <div class="row">
 <div id="demo{{forloop.counter}}" class="col carousel slide my-3" data-ride="carousel">
-    <ul class="carousel-indicators">
-      <li data-target="#demo{{forloop.counter}}" data-slide-to="0" class="active"></li>
-      {% for i in range %}
-      <li data-target="#demo{{forloop.parentloop.counter}}" data-slide-to="{{i}}" ></li>
-      {% endfor %}
-    </ul>
+    
 
 
     <div class="container carousel-inner no-padding">
@@ -95,12 +90,7 @@
 </div>
 
     <!-- left and right controls for the slide -->
-    <a class="carousel-control-prev" href="#demo{{forloop.counter}}" data-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-    </a>
-    <a class="carousel-control-next" href="#demo{{forloop.counter}}" data-slide="next">
-        <span class="carousel-control-next-icon"></span>
-    </a>
+    
         </div>
     {% endfor %}
 </div>
@@ -112,13 +102,7 @@ selected
 
 {% block js %}
 <script>
-let smartphone = 'smartphone'
-let laptops = 'laptops'
-let accessories = 'accessories'
-let television = 'television'
-
-let category = {{category}}
-$('.custom-select').val(`http://127.0.0.1:8000/shop/${category}`)
+$('.custom-select').val(`http://127.0.0.1:8000/shop/bestsellers`)
 $('.carousel').carousel('pause');
 if (localStorage.getItem('cart') == null) {
     var cart = {};

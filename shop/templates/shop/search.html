@@ -54,7 +54,7 @@ color: white;
 <div class="container">
     <!--Slideshow starts here -->
     {% for product, range, nSlides in allProds %}
-    <h5 class="my-4" >Showing Results for {{query}}</h5>
+    <h5 class="my-4" >Showing Results for "{{query}}" in "{{product.0.category}}"</h5>
     <div class="row">
         <div id="demo{{forloop.counter}}" class="col carousel slide my-3" data-ride="carousel">
             <ul class="carousel-indicators">

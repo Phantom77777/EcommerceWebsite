@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .models import Product, Contact, Order, UpdateOrder
 import json
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 
 
 @login_required(login_url='/login')
@@ -100,7 +101,7 @@ def smartphone(request):
                 number_of_slides = n // 4 + 1
             products.append([prodtemp, range(1, number_of_slides), number_of_slides])
 
-    params = {'allProducts': products,'category': 'smartphone'}
+    params = {'allProducts': products, 'category': 'smartphone'}
 
     return render(request, "shop/products.html", params)
 
@@ -141,7 +142,7 @@ def television(request):
             else:
                 number_of_slides = n // 4 + 1
             products.append([prodtemp, range(1, number_of_slides), number_of_slides])
-
+    print(products)
     params = {'allProducts': products,'category': 'television'}
     return render(request, "shop/products.html", params)
 
@@ -154,6 +155,7 @@ def laptops(request):
     print(subcats)
     for subcat in subcats:
         prodtemp = Product.objects.filter(subcategory=subcat, category='Laptop')
+        print(prodtemp)
         n = len(prodtemp)
         if n > 0:
             if n % 4 == 0:
@@ -162,7 +164,7 @@ def laptops(request):
                 number_of_slides = n // 4 + 1
             products.append([prodtemp, range(1, number_of_slides), number_of_slides])
 
-    params = {'allProducts': products,'category': 'laptops'}
+    params = {'allProducts': products, 'category': 'laptops'}
     return render(request, "shop/products.html", params)
 
 
@@ -195,3 +197,90 @@ def search(request):
     if len(allProds) == 0:
         params = {'msg': f"No Results for {query} found"}
     return render(request, 'shop/search.html', params)
+
+
+@login_required(login_url='/login')
+def bestsellers(request):
+    products = []
+    categories = Product.objects.values('category', 'product_id')
+    #cats = {item['category'] for item in categories}
+    #p_ids = {item['product_id'] for item in categories}
+    #print(f"from bestsellers {cats}")
+    #print(f"from bestsellers {p_ids}")
+    #for cat in cats:
+        #prodtemp = Product.objects.filter(category=cat)
+        #n = len(prodtemp)
+        #print(f"{n} in {cat}")
+        #if n > 0:
+            #if n % 4 == 0:
+                #number_of_slides = n // 4
+            #else:
+                #number_of_slides = n // 4 + 1
+            #products.append([prodtemp, range(1, number_of_slides), number_of_slides])int
+    orders = Order.objects.values('items')
+    #print(orders)
+    # for item in categories:
+    #     if item['category']=='Smartphone':
+    #         print(f"Smartphone: {item['product_id']}")
+    #     if item['category']=='Laptop':
+    #         print(f"Laptop: {item['product_id']}")
+    #     if item['category']=='Accessories':
+    #         print(f"Accessories: {item['product_id']}")
+    #     if item['category']=='Television':
+    #         print(f"TV: {item['product_id']}")
+    p_list = []
+    for i in range(1,72):
+        count = 0
+        for order in orders:
+            order = json.loads(str(order['items']))
+            for item in order:
+                if item == f'pr{i}':
+                    count += order[item][0]
+        p_list.append([i, count])
+    #print(p_list)
+    s_id = [1, 5, 6]
+    l_id = []
+    t_id = [7]
+    a_id = [2]
+    for j in range(8,40):
+        s_id.append(j)
+    for j in range(40, 52):
+        l_id.append(j)
+    for j in range(52,63):
+        t_id.append(j)
+    for j in range(63,72):
+        a_id.append(j)
+    sphone = []
+    ltop = []
+    tv = []
+    acc = []
+    for p in p_list:
+        if p[0] in s_id:
+            sphone.append([p[1],p[0]])
+        elif p[0] in l_id:
+            ltop.append([p[1],p[0]])
+        elif p[0] in t_id:
+            tv.append([p[1],p[0]])
+        elif p[0] in a_id:
+            acc.append([p[1],p[0]])
+    sphone = sorted(sphone)
+    sphone = sphone[len(sphone)-4:]
+    ltop = sorted(ltop)
+    ltop = ltop[len(ltop)-4:]
+    tv = sorted(tv)
+    tv = tv[len(tv)-4:]
+    acc = sorted(acc)
+    acc = acc[len(acc)-4:]
+    
+    products = []
+    prodtemp = Product.objects.filter(product_id=sphone[0][1])|Product.objects.filter(product_id=sphone[1][1])|Product.objects.filter(product_id=sphone[2][1])|Product.objects.filter(product_id=sphone[3][1])
+    products.append([prodtemp, range(1,1) ,1])
+    prodtemp = Product.objects.filter(product_id=ltop[0][1])|Product.objects.filter(product_id=ltop[1][1])|Product.objects.filter(product_id=ltop[2][1])|Product.objects.filter(product_id=ltop[3][1])
+    products.append([prodtemp, range(1,1) ,1])
+    prodtemp = Product.objects.filter(product_id=tv[0][1])|Product.objects.filter(product_id=tv[1][1])|Product.objects.filter(product_id=tv[2][1])|Product.objects.filter(product_id=tv[3][1])
+    products.append([prodtemp, range(1,1) ,1])
+    prodtemp = Product.objects.filter(product_id=acc[0][1])|Product.objects.filter(product_id=acc[1][1])|Product.objects.filter(product_id=acc[2][1])|Product.objects.filter(product_id=acc[3][1])
+    products.append([prodtemp, range(1,1) ,1])
+    #print(products)
+    params = {'allProducts': products}
+    return render(request, "shop/bestsellers.html", params)
